@@ -32,8 +32,16 @@
       </div>
       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
         <div class="ad-auth-content">
-          <form>
-            <h2><span class="primary">忘记密码</span></h2>
+          <form method="get" action="login">
+            <button style="border: 0; border-radius: 10px"><img src="static/icon/返回_return.png" width="20" height="20"></button>
+          </form>
+          <table>
+            <tr>
+              <td>
+                <h2><span class="primary" th:text="${forgetPassWord}"></span></h2>
+              </td>
+            </tr>
+          </table>
 <!--            <p >请输入用户名和密码进行登录</p>-->
             <div class="ad-auth-form">
               <div class="ad-auth-feilds mb-30">
@@ -49,7 +57,8 @@
                           <input type="password" placeholder="验证码" class="ad-input">
                       </td>
                       <td>
-                        <button id="count" onclick="getMessage()">获取验证码</button>
+                        <button id="count" onclick="getMessage()" >获取验证码</button>
+<!--                        <input type="button" onclick="getMessage()" value="获取验证码">-->
                       </td>
                     </tr>
                   </table>
@@ -65,25 +74,28 @@
             <div class="ad-auth-btn">
               <button class="ad-btn ad-login-member">找回</button>
             </div>
-          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 <script>
-  let timer = 60;
+  var c=0
+  var t
+  const timer=60
   function getMessage(){
-    while (timer!==0){
-      document.getElementById("count").innerText=`剩余时间为 ${timer}`
-      timer--;
+    if (c===60) {
+      return
     }
-    if (timer===0){
-      reSet()
+    document.getElementById("count").innerText=`重新发送验证码时间${c}s`
+    document.getElementById("count").setAttribute("disabled","disabled")
+    c=c+1
+    t=setTimeout("getMessage()",1000)
+    if (c ===60) {
+      document.getElementById("count").innerText=`获取验证码`
+      document.getElementById("count").removeAttribute("disabled")
+      clearTimeout(t)
     }
-  }
-  function reSet(){
-    document.getElementById("count").innerText=`获取验证码`
   }
 </script>
 </body>

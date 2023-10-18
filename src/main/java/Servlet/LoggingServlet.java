@@ -24,6 +24,7 @@ public class LoggingServlet extends HttpServlet {
 //        resp.setContentType("text/html;charset=UTF-8");
         Context context=new Context();
         //直接对相关的模板进行传递
+        context.setVariable("loginTips", "请输入用户名以及密码以此来进行登陆");
         TemplateUtils.process("login.html", context, resp.getWriter());
     }
 

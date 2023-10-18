@@ -22,6 +22,7 @@ public class ForgetServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Context context=new Context();
+        context.setVariable("forgetPassWord", "忘记密码");
         TemplateUtils.process("forgetPage.html",context,resp.getWriter());
     }
 }
