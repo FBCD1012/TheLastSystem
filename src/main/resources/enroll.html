@@ -35,12 +35,12 @@
                         <form method="get" action="login">
                             <button style="border: 0; border-radius: 10px"><img src="static/icon/返回_return.png" width="20" height="20"></button>
                         </form>
-                        <form method="post" action="login">
                             <!--todo 此处进行的注册操作也是可以进行实现-->
                             <h2><span class="primary" th:text="${loginInfo}"></span></h2>
                             <!--todo 此处进行模板输入字段操作-->
                             <p th:text="${enrollTips}" ></p>
-                            <form method="post" action="enroll">
+                        <!--这里表单提交一定要使用return来进行操作，不然就会出现无法进行的操作-->
+                            <form method="post" action="enroll" onsubmit="return CheckLatestInfo()">
                                     <div class="ad-auth-form">
                                         <div class="ad-auth-feilds mb-30">
                                             <input  id="username" type="text" placeholder="username" name="username" onchange="checkUserName(this)">
@@ -53,9 +53,9 @@
                                             </div>
                                         </div>
                                         <div class="ad-auth-feilds">
-                                            <input id="password" type="password" placeholder="password">
+                                            <input id="password" type="password" placeholder="password" onchange="checkUserPassword(this)">
                                             <div id="thePasswordBox">
-                                                <h6 id="titlePassword">密码组成:3~16个字符长度,大小写+特殊符号</h6>
+                                                <h6 id="titlePassword">密码组成:6~16个字符长度,大小写+特殊符号</h6>
                                             </div>
                                             <div class="ad-auth-icon">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 482.8 482.8"><path d="M395.95,210.4h-7.1v-62.9c0-81.3-66.1-147.5-147.5-147.5c-81.3,0-147.5,66.1-147.5,147.5c0,7.5,6,13.5,13.5,13.5    s13.5-6,13.5-13.5c0-66.4,54-120.5,120.5-120.5c66.4,0,120.5,54,120.5,120.5v62.9h-275c-14.4,0-26.1,11.7-26.1,26.1v168.1    c0,43.1,35.1,78.2,78.2,78.2h204.9c43.1,0,78.2-35.1,78.2-78.2V236.5C422.05,222.1,410.35,210.4,395.95,210.4z M395.05,404.6    c0,28.2-22.9,51.2-51.2,51.2h-204.8c-28.2,0-51.2-22.9-51.2-51.2V237.4h307.2L395.05,404.6L395.05,404.6z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path><path d="M241.45,399.1c27.9,0,50.5-22.7,50.5-50.5c0-27.9-22.7-50.5-50.5-50.5c-27.9,0-50.5,22.7-50.5,50.5    S213.55,399.1,241.45,399.1z M241.45,325c13,0,23.5,10.6,23.5,23.5s-10.5,23.6-23.5,23.6s-23.5-10.6-23.5-23.5    S228.45,325,241.45,325z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path></svg>
@@ -63,7 +63,7 @@
                                         </div>
                                         <br>
                                         <div class="ad-auth-feilds">
-                                            <input id="confirmpassword" type="password" placeholder="ConfirmPassword" name="password">
+                                            <input id="confirmPassword" type="password" placeholder="ConfirmPassword" name="password" onchange="checkConfirm(this)">
                                             <div id="ConfirmBox">
                                                 <h6 id="Confirm">和输入的密码一致</h6>
                                             </div>
@@ -76,7 +76,6 @@
                                     <button  class="ad-btn ad-login-member">点击注册</button>
                                 </div>
                             </form>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -87,15 +86,15 @@
         //密码的长度6~16
         //小写字母 + 大写字母 +特殊符号
         //三到十个字符操作
-        var regex=/^[a-z0-9A-Z]{3,15}$/
-        var thePassWordRegex=/^$/
+        const regex=/^[a-z0-9A-Z]{3,15}$/
+        //设置密码操作
+        const thePassWordRegex=/^[a-z0-9A-Z\W]{6,15}$/
         function checkUserName(){
-            var username=document.getElementById("username")
+            let username=document.getElementById("username")
             //利用正则对象检验目标名称是否合法
-            var isChecked=regex.test(username.value)
+            let isChecked=regex.test(username.value)
             //如果合法对对应的标签进行处理
-            var theTag=document.getElementById("title")
-            var theCheckedTags=document.getElementById("theRuleBox")
+            let theCheckedTags=document.getElementById("theRuleBox")
             if (username.value===""){
                 theCheckedTags.innerHTML=`<h6>用户名组成:3~10个字符长度,不能有特殊符号</h6>`
             }
@@ -107,6 +106,42 @@
             }
             return isChecked
         }
+        function checkUserPassword() {
+            let password=document.getElementById("password")
+            let checkPassword=thePassWordRegex.test(password.value)
+            let theTag=document.getElementById("titlePassword")
+            if (password.value===""){
+                theTag.innerHTML=`<h6>密码组成:6~16个字符长度,大小写+特殊符号</h6>`
+            }
+            if (checkPassword) {
+                // theTag.parentNode.removeChild(theTag)
+                theTag.innerHTML = "<img src='static/icon/对勾_check-correct.png' width='20' height='20'/>符合规则"
+            }else if (checkPassword===false && password.value !=="") {
+                theTag.innerHTML = "<img src='static/icon/报错_caution.png' width='20' height='20'/>不符合规则"
+            }
+            return checkPassword
+        }
+        function checkConfirm(){
+            let  passwordValue=document.getElementById("password")
+            let  ConfirmValue=document.getElementById("confirmPassword")
+            let  theInnerContent=document.getElementById("Confirm")
+            let  theConfirmFlags =(passwordValue.value===ConfirmValue.value)
+            if (theConfirmFlags) {
+                theInnerContent.innerHTML="<img src='static/icon/对勾_check-correct.png' width='20' height='20'/>两次输入密码是一致的"
+            }else {
+                theInnerContent.innerHTML="<img src='static/icon/报错_caution.png' width='20' height='20'/>两次密码不一致"
+            }
+            return theConfirmFlags
+        }
+        function CheckLatestInfo(){
+            let ThreeFlags=checkUserName() && checkConfirm() && checkUserPassword()
+            if (!ThreeFlags){
+                window.alert("用户参数存在错误,请重新输入")
+                location.reload()
+            }
+            return ThreeFlags
+        }
+
     </script>
 </body>
 </html>

@@ -8,12 +8,15 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 
 public class MybatisUtils {
-    private static SqlSessionFactory sqlSessionFactory;
+    private static final SqlSessionFactory sqlSessionFactory;
     static {
         try {
-            sqlSessionFactory=new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(""));
+            sqlSessionFactory=new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("configFile/MybatisConfig.xml"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static SqlSession SetAutoCommit(boolean flags){
+        return sqlSessionFactory.openSession(flags);
     }
 }
