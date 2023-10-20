@@ -43,9 +43,11 @@
             </tr>
           </table>
 <!--            <p >请输入用户名和密码进行登录</p>-->
+          <!--当然了这里进行表单包含还是比较正常的操作-->
+          <form method="post" action="forget">
             <div class="ad-auth-form">
               <div class="ad-auth-feilds mb-30">
-                <input type="text" placeholder="PhoneNum" class="ad-input">
+                <input type="text" placeholder="username" class="ad-input" name="username">
                 <div class="ad-auth-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 483.3 483.3"><path d="M424.3,57.75H59.1c-32.6,0-59.1,26.5-59.1,59.1v249.6c0,32.6,26.5,59.1,59.1,59.1h365.1c32.6,0,59.1-26.5,59.1-59.1    v-249.5C483.4,84.35,456.9,57.75,424.3,57.75z M456.4,366.45c0,17.7-14.4,32.1-32.1,32.1H59.1c-17.7,0-32.1-14.4-32.1-32.1v-249.5    c0-17.7,14.4-32.1,32.1-32.1h365.1c17.7,0,32.1,14.4,32.1,32.1v249.5H456.4z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path><path d="M304.8,238.55l118.2-106c5.5-5,6-13.5,1-19.1c-5-5.5-13.5-6-19.1-1l-163,146.3l-31.8-28.4c-0.1-0.1-0.2-0.2-0.2-0.3    c-0.7-0.7-1.4-1.3-2.2-1.9L78.3,112.35c-5.6-5-14.1-4.5-19.1,1.1c-5,5.6-4.5,14.1,1.1,19.1l119.6,106.9L60.8,350.95    c-5.4,5.1-5.7,13.6-0.6,19.1c2.7,2.8,6.3,4.3,9.9,4.3c3.3,0,6.6-1.2,9.2-3.6l120.9-113.1l32.8,29.3c2.6,2.3,5.8,3.4,9,3.4    c3.2,0,6.5-1.2,9-3.5l33.7-30.2l120.2,114.2c2.6,2.5,6,3.7,9.3,3.7c3.6,0,7.1-1.4,9.8-4.2c5.1-5.4,4.9-14-0.5-19.1L304.8,238.55z" data-original="#000000" class="active-path" data-old_color="#000000" fill="#9abeed"></path></svg>
                 </div>
@@ -54,11 +56,10 @@
                   <table>
                     <tr>
                       <td>
-                          <input type="password" placeholder="验证码" class="ad-input">
+                          <input type="text" placeholder="验证码" class="ad-input" name="CodeNum">
                       </td>
                       <td>
-                        <button id="count" onclick="getMessage()" >获取验证码</button>
-<!--                        <input type="button" onclick="getMessage()" value="获取验证码">-->
+                        <!--                            <button  id="count" onclick="getMessage()">获取验证码</button>-->
                       </td>
                     </tr>
                   </table>
@@ -74,8 +75,14 @@
             <div class="ad-auth-btn">
               <button class="ad-btn ad-login-member">找回</button>
             </div>
+          </form>
         </div>
       </div>
+    </div>
+    <div style=" margin-right: 200px;margin-top: 237px">
+      <form method="post" action="code">
+        <input name="Code" id="count" type="button" onclick="getMessage(); sendMessage()" value="获取验证码" style="width: 95px;height: 50px;padding:0;">
+      </form>
     </div>
   </div>
 </div>
@@ -87,15 +94,25 @@
     if (c===60) {
       return
     }
-    document.getElementById("count").innerText=`重新发送验证码时间${c}s`
+    document.getElementById("count").value=`重发时间${c}s`
     document.getElementById("count").setAttribute("disabled","disabled")
     c=c+1
     t=setTimeout("getMessage()",1000)
     if (c ===60) {
-      document.getElementById("count").innerText=`获取验证码`
+      document.getElementById("count").value=`获取验证码`
       document.getElementById("count").removeAttribute("disabled")
       clearTimeout(t)
     }
+  }
+  function sendMessage(){
+    let xhr=new XMLHttpRequest()
+    xhr.onreadystatechange=function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log(xhr.responseText)
+        }
+    }
+    xhr.open("POST","http://localhost:8080/theLastSystem/code")
+    xhr.send()
   }
 </script>
 </body>

@@ -29,8 +29,9 @@ public class theResourceFilter implements Filter {
                 && !requestURL.endsWith(".woff2")) {
             HttpSession httpSession=httpServletRequest.getSession();
             userInfo userInfo = (Enitity.userInfo) httpSession.getAttribute("userInfo");
-            if (userInfo == null  && ! requestURL.endsWith("/login")
-                    && !requestURL.endsWith("/enroll") && !requestURL.endsWith("/forget")
+            if (userInfo == null && ! requestURL.endsWith("/login")
+                    && !requestURL.endsWith("/enroll") && !requestURL.endsWith("/forget") && !requestURL.endsWith("/code")
+                    && !requestURL.endsWith("forgetContent")
             ) {
                 httpServletResponse.sendRedirect("login");
                 //几处return还是需要注意的

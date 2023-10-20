@@ -29,6 +29,7 @@ public class LoggingServlet extends HttpServlet {
         if (cookies != null) {
             String username=null;
             String password = null;
+            //最好就是利用相关的传递参数来进行理解操作，如何空值其中的操作我觉得也是一个非常必要的理解
             for (Cookie cookie: cookies) {
                 if (cookie.getName().equals("username")) username=  cookie.getValue();
                 if (cookie.getName().equals("password")) password = cookie.getValue();

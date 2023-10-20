@@ -1,17 +1,17 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="TheLastSystem:war exploded">
-    <output-path>$PROJECT_DIR$/target/TheLastSystem-1.0-SNAPSHOT</output-path>
+  <artifact type="exploded-war" name="theMailModule:war exploded">
+    <output-path>$PROJECT_DIR$/theMailModule/target/sample-1.0.0</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>TheLastSystem</module>
+        <module>theMailModule</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="TheLastSystem" />
+          <element id="module-output" name="theMailModule" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: com.aliyun:dysmsapi20170525:2.0.24" />
@@ -19,6 +19,7 @@
           <element id="library" level="project" name="Maven: com.aliyun:tea:1.2.0" />
           <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.12.13" />
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.15.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.36" />
           <element id="library" level="project" name="Maven: com.aliyun:openapiutil:0.2.1" />
           <element id="library" level="project" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.70" />
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.70" />
@@ -37,21 +38,12 @@
           <element id="library" level="project" name="Maven: com.aliyun:tea-console:0.0.1" />
           <element id="library" level="project" name="Maven: com.aliyun:tea-util:0.2.20" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.9" />
-          <element id="library" level="project" name="Maven: org.thymeleaf:thymeleaf:3.1.1.RELEASE" />
-          <element id="library" level="project" name="Maven: ognl:ognl:3.3.4" />
-          <element id="library" level="project" name="Maven: org.javassist:javassist:3.29.0-GA" />
-          <element id="library" level="project" name="Maven: org.attoparser:attoparser:2.0.6.RELEASE" />
-          <element id="library" level="project" name="Maven: org.unbescape:unbescape:1.1.6.RELEASE" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:2.0.5" />
-          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.6" />
-          <element id="library" level="project" name="Maven: com.mysql:mysql-connector-j:8.0.33" />
-          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.21.9" />
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/TheLastSystem-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/theMailModule/target/sample-1.0.0/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="TheLastSystem/web/Web" />
+      <element id="javaee-facet-resources" facet="theMailModule/web/Web" />
     </root>
   </artifact>
 </component>

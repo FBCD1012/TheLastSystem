@@ -1,5 +1,7 @@
-import com.aliyun.sample.Sample;
+
 import org.junit.jupiter.api.Test;
+
+import java.util.Random;
 
 public class theMailTest {
     @Test
@@ -7,8 +9,8 @@ public class theMailTest {
         System.out.println(name);
     }
     public static void main(String[] args) throws Exception {
-        Test1("dongqing");
-        Sample sample = new Sample();
-        Sample.MailPush();
+        Random random=new Random();
+        String randomString= String.valueOf(random.nextInt(9999));
+        System.out.println(randomString);
     }
 }
