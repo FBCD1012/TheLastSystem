@@ -1,6 +1,8 @@
 package Servlet.verify;
 
 
+import Service.ServiceImpl.userServiceImpl;
+import Service.userService;
 import Utils.MailUtils;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import jakarta.servlet.ServletConfig;
@@ -18,14 +20,16 @@ import java.util.Random;
 
 @WebServlet(urlPatterns = "/code")
 public class CodeServlet extends HttpServlet {
+    private static userService userService;
     @Override
     public void init(ServletConfig config) throws ServletException {
+        userService=new userServiceImpl();
         super.init(config);
     }
 
+    //原谅我复用操作，这种操作显然是不太符合软件工程操作的
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 
     @SneakyThrows

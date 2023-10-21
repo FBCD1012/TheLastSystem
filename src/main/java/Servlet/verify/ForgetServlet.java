@@ -3,7 +3,6 @@ package Servlet.verify;
 
 import Enitity.userInfo;
 import Mapper.userInfoMapper;
-import Utils.MailUtils;
 import Utils.MybatisUtils;
 import Utils.TemplateUtils;
 import jakarta.servlet.ServletConfig;
@@ -17,7 +16,6 @@ import org.thymeleaf.context.Context;
 import java.io.IOException;
 
 import java.util.Map;
-import java.util.Objects;
 
 
 @WebServlet(urlPatterns = "/forget")
@@ -83,9 +81,9 @@ public class ForgetServlet extends HttpServlet {
                     //设置cookie缓存操作
                     Cookie rCodeCookie=new Cookie("rCode",rCode);
                     //设置cookie的生命周期，单位是s操作
-                    rCodeCookie.setMaxAge(30);
+                    rCodeCookie.setMaxAge(300);
                     Cookie usernameCookie=new Cookie("username",username);
-                    usernameCookie.setMaxAge(30);
+                    usernameCookie.setMaxAge(300);
                     resp.addCookie(rCodeCookie);
                     resp.addCookie(usernameCookie);
                     //后续实现session操作，其实你能发现其中相关的逻辑应用还是相当不一样的

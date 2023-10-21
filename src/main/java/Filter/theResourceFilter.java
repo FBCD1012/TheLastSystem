@@ -26,12 +26,17 @@ public class theResourceFilter implements Filter {
         if (!requestURL.endsWith(".html")
                 && !requestURL.endsWith(".css")
                 && !requestURL.endsWith(".png")
-                && !requestURL.endsWith(".woff2")) {
+                && !requestURL.endsWith(".woff2")
+                && !requestURL.endsWith(".gif")
+                && !requestURL.endsWith(".jpg")
+                && !requestURL.endsWith(".js")
+        && !requestURL.endsWith(".ico")) {
             HttpSession httpSession=httpServletRequest.getSession();
             userInfo userInfo = (Enitity.userInfo) httpSession.getAttribute("userInfo");
             if (userInfo == null && ! requestURL.endsWith("/login")
                     && !requestURL.endsWith("/enroll") && !requestURL.endsWith("/forget") && !requestURL.endsWith("/code")
-                    && !requestURL.endsWith("forgetContent")
+                    && !requestURL.endsWith("/forgetContent") && !requestURL.endsWith("/userNameTestServlet")
+                    && !requestURL.endsWith("/content")
             ) {
                 httpServletResponse.sendRedirect("login");
                 //几处return还是需要注意的

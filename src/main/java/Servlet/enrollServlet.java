@@ -5,7 +5,6 @@ import Utils.MybatisUtils;
 import Utils.TemplateUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,7 +12,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.thymeleaf.context.Context;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "/enroll")

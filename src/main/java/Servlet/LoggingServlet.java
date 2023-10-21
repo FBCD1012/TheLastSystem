@@ -86,7 +86,7 @@ public class LoggingServlet extends HttpServlet {
                     //浏览器写入操作肯定是优先于弹窗写入操作的
                     //直接进行重定向操作，关于此处的实现，如何进行才是非常必要的
                     //TODO 关于此处逻辑的优化还是要进行一次的
-                    resp.sendRedirect("login");
+                    resp.getWriter().write("<Script>账户参数错误</Script>");
                 }
             }
         }else {
