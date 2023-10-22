@@ -2,6 +2,7 @@ package Servlet.theIndex;
 
 
 
+import Utils.TemplateUtils;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.thymeleaf.context.Context;
 
 
 import java.io.IOException;
@@ -37,6 +39,8 @@ public class ContentServlet extends HttpServlet{
 //            req.getSession().invalidate();
 //
 //        }
+        Context context=new Context();
+        TemplateUtils.process("index.html", context, resp.getWriter());
         req.getSession().invalidate();
     }
 

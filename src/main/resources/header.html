@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <header class="header-wrapper main-header" th:fragment="title">
+    <div class="header-inner-wrapper">
+        <div class="logo-wrapper">
+            <a href="" class="admin-logo">
+                <img src="static/image/发布话题.png" alt="">
+            </a>
+        </div>
+        <div class="header-right">
+            <div class="header-left">
+                <div class="header-links">
+                    <a href="javascript:void(0);" class="toggle-btn">
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="user-info-wrapper header-links">
+                    <a href="javascript:void(0);" class="user-info">
+                        <img src="static/picture/user.jpg" alt="" class="user-img">
+                        <div class="blink-animation">
+                            <span class="blink-circle"></span>
+                            <span class="main-circle"></span>
+                        </div>
+                    </a>
+                    <div class="user-info-box">
+                        <div class="drop-down-header">
+                            <h4></h4>
+                            <p>欢迎进入到个人笔记管理系统</p>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="login" onclick="clearCookie()">
+                                    <i class="fas fa-sign-out-alt"></i> 退出登陆
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+<script>
+    function clearCookie() {
+            //将cookie进行了分离
+            var cookies = document.cookie.split(";");
+            //遍历cookie
+            for (var i = 0; i < cookies.length; i++) {
+                //等同于对cookie的键形成了空值操作
+                //千万明晰其中的理解
+                var cookie = cookies[i];
+                var eqPos = cookie.indexOf("=");
+                //如何进行这里的分割也是非常必要的
+                var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+            }
+    }
+</script>
+</html>

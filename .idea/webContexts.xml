@@ -9,6 +9,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/resources/header.html" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/resources/index.html" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/resources/login.html" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>
   </component>

@@ -103,9 +103,9 @@
     }
     if (checkPassword) {
       // theTag.parentNode.removeChild(theTag)
-      theTag.innerHTML = "<img src='static/icon/对勾_check-correct.png' width='20' height='20'/>符合规则"
+      theTag.innerHTML = "<img src='../webapp/static/icon/对勾_check-correct.png' width='20' height='20'/>符合规则"
     }else if (checkPassword===false && password.value !=="") {
-      theTag.innerHTML = "<img src='static/icon/报错_caution.png' width='20' height='20'/>不符合规则"
+      theTag.innerHTML = "<img src='../webapp/static/icon/报错_caution.png' width='20' height='20'/>不符合规则"
     }
     return checkPassword
   }
@@ -115,9 +115,9 @@
     let  theInnerContent=document.getElementById("Confirm")
     let  theConfirmFlags =(passwordValue.value===ConfirmValue.value)
     if (theConfirmFlags) {
-      theInnerContent.innerHTML="<img src='static/icon/对勾_check-correct.png' width='20' height='20'/>两次输入密码是一致的"
+      theInnerContent.innerHTML="<img src='../webapp/static/icon/对勾_check-correct.png' width='20' height='20'/>两次输入密码是一致的"
     }else {
-      theInnerContent.innerHTML="<img src='static/icon/报错_caution.png' width='20' height='20'/>两次密码不一致"
+      theInnerContent.innerHTML="<img src='../webapp/static/icon/报错_caution.png' width='20' height='20'/>两次密码不一致"
     }
     return theConfirmFlags
   }

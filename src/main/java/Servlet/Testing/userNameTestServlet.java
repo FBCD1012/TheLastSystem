@@ -1,5 +1,6 @@
 package Servlet.Testing;
 
+import Enitity.userInfo;
 import Mapper.userInfoMapper;
 import Service.ServiceImpl.userServiceImpl;
 import Service.userService;
@@ -7,9 +8,7 @@ import Utils.MybatisUtils;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import org.apache.ibatis.session.SqlSession;
 
 import java.io.IOException;
@@ -43,9 +42,20 @@ public class userNameTestServlet extends HttpServlet {
             if (elements) {
                 try(SqlSession session = MybatisUtils.SetAutoCommit(true)) {
                     userInfoMapper mapper = session.getMapper(userInfoMapper.class);
-                    mapper.setNewlyPassword(password, username);
+                    int i = mapper.setNewlyPassword(password, username);
+                    userInfo theUserInfo = mapper.getTheUserInfo(username, password);
+                    if (i!=0 && theUserInfo!=null){
+                        Cookie userNameCookie=new Cookie("username",username);
+                        userNameCookie.setMaxAge(300);
+                        Cookie passwordCookie=new Cookie("password",password);
+                        passwordCookie.setMaxAge(300);
+                        resp.addCookie(userNameCookie);
+                        resp.addCookie(passwordCookie);
+                        HttpSession httpSession= req.getSession();
+                        httpSession.setAttribute("userInfo",theUserInfo);
+                        resp.sendRedirect("content");
+                    }
                 }
-                resp.getWriter().write("<h1>用户操作成功</h1>");
             }else {
                 resp.getWriter().write("<script>window.alert('用户名称参数错误')</script>");
             }

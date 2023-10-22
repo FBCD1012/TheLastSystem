@@ -16,6 +16,6 @@ public class TemplateUtils {
         templateEngine.setTemplateResolver(classLoaderTemplateResolver);
     }
     public static void process(String string, Context context, Writer writer){
-        templateEngine.process(string,context ,writer );
+        templateEngine.process(string, context, writer);
     }
 }

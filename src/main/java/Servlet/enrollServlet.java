@@ -1,13 +1,12 @@
 package Servlet;
 
+import Enitity.userInfo;
 import Mapper.userInfoMapper;
 import Utils.MybatisUtils;
 import Utils.TemplateUtils;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import org.apache.ibatis.session.SqlSession;
 import org.thymeleaf.context.Context;
 
@@ -37,11 +36,22 @@ public class enrollServlet extends HttpServlet {
                 try (SqlSession session = MybatisUtils.SetAutoCommit(true)){
                     userInfoMapper mapper = session.getMapper(userInfoMapper.class);
                     int i = mapper.insertUserInfo(username, password);
-                    if (i == 1) {
+                    userInfo theUserInfo = mapper.getTheUserInfo(username, password);
+                    if (i == 1 && theUserInfo!=null) {
                         //TODO 到时候这里需要进行Session操作来进行连接登陆，免得用户多次登陆造成不必要的麻烦操作
                         //TODO 到时候这里直接进行跳转操作
                         //直接进行跳转操作
-                        resp.sendRedirect("login");
+                        //直接跳转到内容进行操作实现
+                        Cookie usernameCookie=new Cookie("username",username);
+                        usernameCookie.setMaxAge(30);
+                        Cookie passwordCookie=new Cookie("password", password);
+                        passwordCookie.setMaxAge(30);
+                        resp.addCookie(usernameCookie);
+                        resp.addCookie(passwordCookie);
+                        HttpSession httpSession= req.getSession();
+                        //传递检验其中的相关操作实现
+                        httpSession.setAttribute("userInfo",theUserInfo);
+                        resp.sendRedirect("content");
                     }else {
                         resp.getWriter().write("<h1>用户注册失败</h1>");
                     }
