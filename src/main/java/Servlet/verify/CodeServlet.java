@@ -39,7 +39,7 @@ public class CodeServlet extends HttpServlet {
         //随机数还是要保证其中的位数一定要完整实现
         int RCode=random.nextInt(9999);
         String RCodeString = null;
-        if (RCode >999 ) {
+        if (RCode > 999 ) {
             RCodeString=String.valueOf(RCode);
             System.out.println("验证码为："+RCodeString);
         }

@@ -16,5 +16,6 @@
     </environments>
     <mappers>
         <mapper class="Mapper.userInfoMapper"/>
+        <mapper class="Mapper.noteInfoMapper"/>
     </mappers>
 </configuration>

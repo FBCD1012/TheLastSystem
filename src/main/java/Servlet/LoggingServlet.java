@@ -51,7 +51,7 @@ public class LoggingServlet extends HttpServlet {
         Context context=new Context();
         //直接对相关的模板进行传递
         context.setVariable("loginTips", "请输入用户名以及密码以此来进行登陆");
-        TemplateUtils.process("login.html", context, resp.getWriter());
+        TemplateUtils.process("index.html", context, resp.getWriter());
         //如果cookie不是空的话，然后再进行详细操作，如何实现也是非常必要的！
         req.getRequestDispatcher("/").forward(req, resp);
     }

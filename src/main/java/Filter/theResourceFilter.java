@@ -36,7 +36,7 @@ public class theResourceFilter implements Filter {
             if (userInfo == null && ! requestURL.endsWith("/login")
                     && !requestURL.endsWith("/enroll") && !requestURL.endsWith("/forget") && !requestURL.endsWith("/code")
                     && !requestURL.endsWith("/forgetContent") && !requestURL.endsWith("/userNameTestServlet")
-                    && !requestURL.endsWith("/content")
+                    && !requestURL.endsWith("/content") && !requestURL.endsWith("/innerContent")
             ) {
                 httpServletResponse.sendRedirect("login");
                 //几处return还是需要注意的
