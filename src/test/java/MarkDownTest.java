@@ -1,7 +1,7 @@
-import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.options.MutableDataSet;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.data.MutableDataSet;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.text.html.HTMLDocument;

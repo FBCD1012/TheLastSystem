@@ -1,11 +1,13 @@
 package Mapper;
 
 
+import Enitity.noteInfo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.sql.Date;
+import java.util.List;
 
 //传入
 public interface noteInfoMapper {
@@ -15,7 +17,7 @@ public interface noteInfoMapper {
                        @Param("authorId")Integer authorId);
 
     @Select("SELECT * FROM noteInfo")
-    noteInfoMapper getNoteInfo();
+    noteInfo getNoteInfo();
 
     //获取相关的名称操作自动进行插入
     @Select("SELECT DISTINCT authorId FROM noteInfo where noter=#{noteName}")
@@ -23,4 +25,7 @@ public interface noteInfoMapper {
 
     @Select("SELECT COUNT(*) FROM noteInfo")
     int getCountInt();
+
+    @Select("SELECT * FROM noteInfo")
+    List<noteInfo> getNoteInfoList();
 }

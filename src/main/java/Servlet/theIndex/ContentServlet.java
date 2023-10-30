@@ -2,24 +2,32 @@ package Servlet.theIndex;
 
 
 
+import Enitity.noteInfo;
 import Mapper.noteInfoMapper;
 import Utils.MybatisUtils;
 import Utils.TemplateUtils;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import org.apache.commons.io.IOUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.thymeleaf.context.Context;
 
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
+@MultipartConfig
 @WebServlet(urlPatterns = "/content")
 public class ContentServlet extends HttpServlet{
     @Override
@@ -44,6 +52,11 @@ public class ContentServlet extends HttpServlet{
 //            req.getSession().invalidate();
 //
 //        }
+        try(SqlSession sqlSes= MybatisUtils.SetAutoCommit(true)) {
+            noteInfoMapper mapper = sqlSes.getMapper(noteInfoMapper.class);
+            List<noteInfo> noteInfoList= mapper.getNoteInfoList();
+            System.out.println(noteInfoList);
+        }
         Context context=new Context();
         TemplateUtils.process("content.html", context, resp.getWriter());
         req.getSession().invalidate();
@@ -71,15 +84,29 @@ public class ContentServlet extends HttpServlet{
                     int countInt = mapper.getCountInt();
                     //直接进行插入操作
                     int i = mapper.InsertNoteInfo(countInt + 1, noteName, dateTime, Author, noteName1);
-                    if (i==1){
-                        resp.getWriter().write("<script>window.alert('文本插入成功')</script>");
+                    if (i == 1) {
+                        //上传文件的方式如何进行才是非常必要的
+                        Part part=req.getPart("theUpdateLoadFile");
+                        String pathName=part.getSubmittedFileName();
+                        try (FileOutputStream fos = new FileOutputStream("E:\\fbcd2\\demo6\\reflection\\TheLastSystem\\src\\main\\webapp\\file\\"+pathName)){
+                            IOUtils.copy(part.getInputStream(),fos);
+                        }
+                        resp.setHeader("Content-Type", "text/html;charset=UTF-8");
+                        System.out.println("文件插入成功");
+                        System.out.println("数据插入成功");
+                        Context context=new Context();
+                        TemplateUtils.process("content.html", context, resp.getWriter());
+                        resp.getWriter().println("<script>window.alert('参数插入成功')</script>");
+                    }else {
+                        System.out.println("数据插入失败");
+                        Context context=new Context();
+                        TemplateUtils.process("content.html", context, resp.getWriter());
+                        resp.getWriter().println("<script>window.alert('参数插入失败')</script>");
                     }
-                }else {
-                    resp.getWriter().write("<script>window.alert('不存在这样的作者')</script>");
                 }
             }
         }else {
-            resp.getWriter().write("<script>window.alert('表单参数错误')</script>");
+            System.out.println("表单参数不完整");
         }
     }
 }

@@ -12,6 +12,6 @@ public class noteInfo {
     Integer noteId;
     String noteName;
     Date notedTime;
-    String author;
+    String noter;
     Integer authorId;
 }

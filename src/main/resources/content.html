@@ -37,7 +37,7 @@
         <div id="overlay">
             <div class="popup">
                 <p class="popup_title">上传文件</p>
-                <form style="margin-left: 145px;margin-top: 20px" onsubmit="getTheContent(this)">
+                <form id="myForm" style="margin-left: 145px;margin-top: 20px" action="content" method="post" enctype="multipart/form-data">
                     <table>
                         <tr>
                             <td>
@@ -65,10 +65,10 @@
                         </tr>
                     </table>
                     <div style="margin-right: 200px">
-                        <input type="file" value="上传文件">
+                        <input type="file" name="theUpdateLoadFile" value="上传文件">
                         <div class="popup_btn" style="margin-top: 20px;margin-left: 60px">
                             <button class="cancelBtn" onclick="hidePopup()" type="reset">取消</button>
-                            <button class="confirmBtn" onclick="hidePopup()">确认</button>
+                            <button class="confirmBtn" onclick="contentTest();hidePopup()" type="submit">确认</button>
                         </div>
                     </div>
                 </form>
@@ -91,7 +91,7 @@
                     </li>
                     
                     <li>
-                        <a href="books">
+                        <a href="theMarkdown">
                             <span class="icon-menu feather-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                             </span>
@@ -294,11 +294,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr >
-                                                    <td>#JH2033</td>
-                                                    <td >java web</td>
-                                                    <td >10/22/2023</td>
-                                                    <td >FBCD</td>
-                                                    <td >#0001</td>
+                                                    <td></td>
                                                     <td class="relative">
                                                         <a class="action-btn">
                                                             <svg class="default-size " viewbox="0 0 341.333 341.333 ">
@@ -329,9 +325,8 @@
             </div>
         </div>
     </div>
-    </div>
-    <!-- Script Start -->
-	<script src="static/js/jquery.min.js"></script>
+
+    <script src="static/js/jquery.min.js"></script>
     <script src="static/js/popper.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/swiper.min.js"></script>
@@ -351,17 +346,18 @@
         var overlay = document.getElementById("overlay");
         overlay.style.display = "none";
     }
-    function getTheContent(){
+    function contentTest(){
         let xhr=new XMLHttpRequest();
+        let form=document.getElementById("myForm")
+        let formData=new FormData(form)
+        xhr.open("POST","http://localhost:8080/MySystem_war_exploded/content",true)
+        xhr.send(formData)
         xhr.onreadystatechange=function() {
-            if (xhr.readyState === 4 &&xhr.status === 200){
-                //响应流操作理解，如何实现也是非常必要的
+            if (xhr.readyState === 4 && xhr.status === 200){
+                window.alert("参数插入成功")
                 console.log(xhr.responseText)
             }
-            xhr.open("post","content",true)
-            xhr.send()
         }
     }
-
 </script>
 </html>
